@@ -17,7 +17,10 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class BoardsViewModel(private val storage: BoardStorage) : ViewModel() {
+class BoardsViewModel(
+    private val storage: BoardStorage,
+    private val context: Context? = null
+) : ViewModel() {
 
     private val _boards = MutableStateFlow<List<Board>>(emptyList())
     val boards: StateFlow<List<Board>> = _boards
@@ -91,6 +94,12 @@ class BoardsViewModel(private val storage: BoardStorage) : ViewModel() {
             val updated = storage.updateBoard(board)
             _selectedBoard.value = updated
             _boards.value = storage.listBoards()
+            // Update home screen widget
+            context?.let { ctx ->
+                runCatching {
+                    com.example.convinenceapp.widget.BoardWidgetProvider.notifyUpdate(ctx)
+                }
+            }
         }
     }
 
@@ -143,6 +152,6 @@ class BoardsViewModel(private val storage: BoardStorage) : ViewModel() {
     class Factory(private val context: Context) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T =
-            BoardsViewModel(BoardStorage(context.applicationContext)) as T
+            BoardsViewModel(BoardStorage(context.applicationContext), context.applicationContext) as T
     }
 }

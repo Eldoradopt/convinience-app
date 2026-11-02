@@ -31,7 +31,9 @@ data class PaintBoardData(
 @Serializable
 data class PaintArmy(
     val name: String,
-    val paints: List<PaintItem> = emptyList()
+    val paints: List<PaintItem> = emptyList(),
+    val posX: Float = 0f,
+    val posY: Float = 0f
 )
 
 @Serializable
@@ -39,7 +41,8 @@ data class PaintItem(
     val name: String,
     val hex: String,
     val paintType: String,
-    val checked: Boolean = false
+    val checked: Boolean = false,
+    val wantToBuy: Boolean = false
 )
 
 @Serializable

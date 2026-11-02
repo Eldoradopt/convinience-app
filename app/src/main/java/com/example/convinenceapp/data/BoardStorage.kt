@@ -41,11 +41,22 @@ class BoardStorage(private val context: Context) {
             }
             ?.toMutableList() ?: mutableListOf()
 
-        // Automatically populate default Warhammer paint board if missing
-        if (boards.none { it.id == "default_warhammer_paint_board" || it.type == BoardType.PAINT }) {
+        // Automatically populate default Warhammer paint board if missing or ensure Krieg is present
+        val existingPaintIndex = boards.indexOfFirst { it.id == "default_warhammer_paint_board" || it.type == BoardType.PAINT }
+        if (existingPaintIndex == -1) {
             val defaultBoard = DefaultWarhammerData.createDefaultPaintBoard()
             createBoard(defaultBoard)
             boards.add(0, defaultBoard)
+        } else {
+            val existing = boards[existingPaintIndex]
+            if (existing.paintData.armies.none { it.name.contains("Krieg", ignoreCase = true) }) {
+                val updatedArmies = existing.paintData.armies.toMutableList()
+                val kriegArmy = DefaultWarhammerData.getDefaultArmies().first { it.name.contains("Krieg", ignoreCase = true) }
+                updatedArmies.add(kriegArmy)
+                val updatedBoard = existing.copy(paintData = existing.paintData.copy(armies = updatedArmies))
+                updateBoard(updatedBoard)
+                boards[existingPaintIndex] = updatedBoard
+            }
         }
 
         return boards.sortedByDescending { it.updatedAt }

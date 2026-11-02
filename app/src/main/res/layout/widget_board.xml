@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/widget_background"
+    android:orientation="vertical"
+    android:padding="12dp">
+
+    <!-- Top Navigation Bar: Prev/Next Buttons & Board Counter -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/widget_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="🎨 Paint Checklist"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/widget_board_counter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="6dp"
+            android:text="1/3"
+            android:textColor="#9E9E9E"
+            android:textSize="11sp" />
+
+        <!-- Previous Board Button -->
+        <Button
+            android:id="@+id/widget_btn_prev"
+            android:layout_width="32dp"
+            android:layout_height="28dp"
+            android:background="#2E2E3E"
+            android:padding="0dp"
+            android:text="◀"
+            android:textColor="#00FFCC"
+            android:textSize="10sp" />
+
+        <!-- Next Board Button -->
+        <Button
+            android:id="@+id/widget_btn_next"
+            android:layout_width="32dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="4dp"
+            android:background="#2E2E3E"
+            android:padding="0dp"
+            android:text="▶"
+            android:textColor="#00FFCC"
+            android:textSize="10sp" />
+    </LinearLayout>
+
+    <!-- Interactive Content Area (Click to launch app) -->
+    <LinearLayout
+        android:id="@+id/widget_content_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <!-- Dynamic Category / Subtitle -->
+        <TextView
+            android:id="@+id/widget_section_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="📝 Note Content"
+            android:textColor="#FFA726"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <!-- Dynamic Body Text (Paint shopping list, note text, or calculation) -->
+        <TextView
+            android:id="@+id/widget_main_text"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="3dp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:lineSpacingExtra="2dp"
+            android:maxLines="4"
+            android:text="Tap to open board..."
+            android:textColor="#D5D5E0"
+            android:textSize="11sp" />
+
+        <!-- Footer launch cue -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:text="Tap to open in app ➔"
+            android:textColor="#858595"
+            android:textSize="9sp" />
+    </LinearLayout>
+
+</LinearLayout>
